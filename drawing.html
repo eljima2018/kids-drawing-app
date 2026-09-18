@@ -1,165 +1,728 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>آموزش نقاشی</title>
 
+
   <style>
+
     * {
       box-sizing: border-box;
     }
 
+
     body {
+
       margin: 0;
+
       font-family: Arial, sans-serif;
+
       background: #f5f7ff;
+
       color: #222;
+
     }
+
 
     header {
+
       background: #6c63ff;
+
       color: white;
+
       text-align: center;
+
       padding: 22px;
+
       border-radius: 0 0 25px 25px;
+
     }
+
 
     header h1 {
+
       margin: 0;
+
+      font-size: 26px;
+
     }
+
 
     .container {
+
       max-width: 650px;
+
       margin: auto;
+
       padding: 20px;
+
       text-align: center;
+
     }
+
 
     .step-number {
+
       font-size: 20px;
+
       font-weight: bold;
-      margin: 15px;
+
+      margin: 20px;
+
     }
+
 
     .drawing-area {
+
       background: white;
+
       border-radius: 25px;
+
       padding: 30px;
+
       min-height: 300px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,0.08);
+
     }
 
-    .cat {
+
+    .drawing {
+
       font-size: 150px;
+
     }
+
 
     .instruction {
+
       font-size: 21px;
+
       margin: 25px 0;
+
       line-height: 1.8;
+
     }
+
 
     .buttons {
+
       display: flex;
+
       justify-content: center;
-      gap: 15px;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
     }
+
 
     button {
+
       border: none;
+
       border-radius: 15px;
-      padding: 14px 25px;
+
+      padding: 14px 22px;
+
       font-size: 17px;
+
       cursor: pointer;
+
     }
+
 
     .next {
+
       background: #6c63ff;
+
       color: white;
+
     }
+
 
     .previous {
+
       background: #ddd;
+
     }
+
+
+    .practice {
+
+      background: #20b26b;
+
+      color: white;
+
+      margin-top: 20px;
+
+    }
+
 
     .home {
-      margin-top: 20px;
+
       background: #eee;
+
+      margin-top: 15px;
+
     }
 
+
     #finish {
+
       display: none;
-      font-size: 25px;
-      background: #fff3cd;
+
+      margin-top: 25px;
+
       padding: 25px;
+
       border-radius: 20px;
-      margin-top: 20px;
+
+      background: #fff3cd;
+
+      font-size: 23px;
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-  <h1>🐱 آموزش کشیدن گربه</h1>
+
+  <h1 id="title">
+    🎨 آموزش نقاشی
+  </h1>
+
 </header>
+
 
 <div class="container">
 
+
   <div class="step-number">
-    مرحله <span id="stepNumber">1</span> از 6
+
+    مرحله
+    <span id="stepNumber">1</span>
+    از
+    <span id="totalSteps">6</span>
+
   </div>
+
 
   <div class="drawing-area">
-    <div class="cat" id="cat">⭕</div>
+
+    <div
+      class="drawing"
+      id="drawing"
+    >
+      ⭕
+    </div>
+
   </div>
 
-  <div class="instruction" id="instruction">
-    ابتدا یک دایره برای سر گربه بکش.
+
+  <div
+    class="instruction"
+    id="instruction"
+  >
+    در حال آماده‌سازی آموزش...
   </div>
+
 
   <div class="buttons">
 
-    <button class="previous" onclick="previousStep()">
+
+    <button
+      class="previous"
+      onclick="previousStep()"
+    >
       ← قبلی
     </button>
 
-    <button class="next" onclick="nextStep()">
+
+    <button
+      class="next"
+      onclick="nextStep()"
+    >
       مرحله بعد →
     </button>
 
+
   </div>
 
-  <button class="home" onclick="goHome()">
-    🏠 بازگشت به صفحه اصلی
-  </button>
-
- <div id="finish">
-
-  🎉 آفرین!<br><br>
-
-  نقاشی گربه را کامل کردی! ⭐
-
-  <br><br>
 
   <button
-    onclick="window.location.href='practice.html'"
-    style="
-      background:#6c63ff;
-      color:white;
-      border:none;
-      padding:15px 25px;
-      border-radius:15px;
-      font-size:17px;
-      cursor:pointer;
-    "
+    class="practice"
+    onclick="goPractice()"
   >
     🎨 حالا خودم نقاشی می‌کنم
   </button>
 
+
+  <br>
+
+
+  <button
+    class="home"
+    onclick="goHome()"
+  >
+    🏠 صفحه اصلی
+  </button>
+
+
+  <div id="finish">
+
+    🎉 آفرین!
+
+    <br><br>
+
+    آموزش این نقاشی را کامل کردی! ⭐
+
+  </div>
+
+
 </div>
+
+
+<script>
+
+
+/* -------------------------
+   دریافت نقاشی انتخاب شده
+------------------------- */
+
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const type =
+  params.get("type") || "cat";
+
+
+/* -------------------------
+   اطلاعات نقاشی‌ها
+------------------------- */
+
+
+const drawings = {
+
+
+  cat: {
+
+    title: "🐱 آموزش کشیدن گربه",
+
+    steps: [
+
+      {
+        image: "⭕",
+        text: "ابتدا یک دایره برای سر گربه بکش."
+      },
+
+      {
+        image: "🐱",
+        text: "حالا دو گوش برای گربه اضافه کن."
+      },
+
+      {
+        image: "😺",
+        text: "چشم‌های گربه را بکش."
+      },
+
+      {
+        image: "😸",
+        text: "بینی و دهان گربه را اضافه کن."
+      },
+
+      {
+        image: "🐈",
+        text: "حالا بدن و پاهای گربه را بکش."
+      },
+
+      {
+        image: "🐈‍⬛",
+        text: "در آخر دم گربه را اضافه کن."
+      }
+
+    ]
+
+  },
+
+
+  dog: {
+
+    title: "🐶 آموزش کشیدن سگ",
+
+    steps: [
+
+      {
+        image: "⭕",
+        text: "ابتدا یک دایره برای سر سگ بکش."
+      },
+
+      {
+        image: "🐶",
+        text: "گوش‌های سگ را اضافه کن."
+      },
+
+      {
+        image: "🐶",
+        text: "چشم‌ها و بینی سگ را بکش."
+      },
+
+      {
+        image: "🐕",
+        text: "بدن سگ را اضافه کن."
+      },
+
+      {
+        image: "🐕",
+        text: "پاهای سگ را بکش."
+      },
+
+      {
+        image: "🐕‍🦺",
+        text: "در آخر دم سگ را اضافه کن."
+      }
+
+    ]
+
+  },
+
+
+  car: {
+
+    title: "🚗 آموزش کشیدن ماشین",
+
+    steps: [
+
+      {
+        image: "▭",
+        text: "ابتدا بدنه اصلی ماشین را بکش."
+      },
+
+      {
+        image: "🚗",
+        text: "قسمت بالایی ماشین را اضافه کن."
+      },
+
+      {
+        image: "🚗",
+        text: "دو چرخ ماشین را بکش."
+      },
+
+      {
+        image: "🚙",
+        text: "پنجره‌های ماشین را اضافه کن."
+      },
+
+      {
+        image: "🚘",
+        text: "چراغ‌های ماشین را بکش."
+      },
+
+      {
+        image: "🚗",
+        text: "حالا ماشین را رنگ‌آمیزی کن."
+      }
+
+    ]
+
+  },
+
+
+  house: {
+
+    title: "🏠 آموزش کشیدن خانه",
+
+    steps: [
+
+      {
+        image: "□",
+        text: "ابتدا یک مربع برای خانه بکش."
+      },
+
+      {
+        image: "🏠",
+        text: "حالا سقف خانه را اضافه کن."
+      },
+
+      {
+        image: "🏠",
+        text: "در و پنجره‌ها را بکش."
+      },
+
+      {
+        image: "🏡",
+        text: "یک دودکش به خانه اضافه کن."
+      },
+
+      {
+        image: "🏡",
+        text: "کنار خانه درخت بکش."
+      },
+
+      {
+        image: "🏡",
+        text: "حالا خانه را رنگ‌آمیزی کن."
+      }
+
+    ]
+
+  },
+
+
+  tree: {
+
+    title: "🌳 آموزش کشیدن درخت",
+
+    steps: [
+
+      {
+        image: "│",
+        text: "ابتدا تنه درخت را بکش."
+      },
+
+      {
+        image: "🌱",
+        text: "شاخه‌های درخت را اضافه کن."
+      },
+
+      {
+        image: "🌿",
+        text: "برگ‌ها را کم‌کم اضافه کن."
+      },
+
+      {
+        image: "🌳",
+        text: "قسمت بالایی درخت را کامل کن."
+      },
+
+      {
+        image: "🌳",
+        text: "زمین و چمن را اضافه کن."
+      },
+
+      {
+        image: "🌳",
+        text: "درخت را رنگ‌آمیزی کن."
+      }
+
+    ]
+
+  },
+
+
+  fish: {
+
+    title: "🐟 آموزش کشیدن ماهی",
+
+    steps: [
+
+      {
+        image: "◯",
+        text: "ابتدا شکل بدن ماهی را بکش."
+      },
+
+      {
+        image: "🐟",
+        text: "دم ماهی را اضافه کن."
+      },
+
+      {
+        image: "🐟",
+        text: "چشم ماهی را بکش."
+      },
+
+      {
+        image: "🐠",
+        text: "باله‌های ماهی را اضافه کن."
+      },
+
+      {
+        image: "🐠",
+        text: "جزئیات بدن ماهی را بکش."
+      },
+
+      {
+        image: "🐠",
+        text: "حالا ماهی را رنگ‌آمیزی کن."
+      }
+
+    ]
+
+  }
+
+};
+
+
+/* -------------------------
+   انتخاب نقاشی
+------------------------- */
+
+
+const currentDrawing =
+  drawings[type] || drawings.cat;
+
+
+let step = 1;
+
+
+document.getElementById("title").innerText =
+  currentDrawing.title;
+
+
+document.getElementById("totalSteps").innerText =
+  currentDrawing.steps.length;
+
+
+/* -------------------------
+   نمایش مرحله
+------------------------- */
+
+
+function updateStep() {
+
+
+  const current =
+    currentDrawing.steps[step - 1];
+
+
+  document.getElementById(
+    "stepNumber"
+  ).innerText = step;
+
+
+  document.getElementById(
+    "instruction"
+  ).innerText = current.text;
+
+
+  document.getElementById(
+    "drawing"
+  ).innerText = current.image;
+
+
+  if (
+    step ===
+    currentDrawing.steps.length
+  ) {
+
+    document.getElementById(
+      "finish"
+    ).style.display = "block";
+
+  } else {
+
+    document.getElementById(
+      "finish"
+    ).style.display = "none";
+
+  }
+
+}
+
+
+/* -------------------------
+   مرحله بعد
+------------------------- */
+
+
+function nextStep() {
+
+  if (
+    step <
+    currentDrawing.steps.length
+  ) {
+
+    step++;
+
+    updateStep();
+
+  }
+
+}
+
+
+/* -------------------------
+   مرحله قبل
+------------------------- */
+
+
+function previousStep() {
+
+  if (step > 1) {
+
+    step--;
+
+    updateStep();
+
+  }
+
+}
+
+
+/* -------------------------
+   تمرین
+------------------------- */
+
+
+function goPractice() {
+
+  window.location.href =
+    "practice.html?type=" + type;
+
+}
+
+
+/* -------------------------
+   صفحه اصلی
+------------------------- */
+
+
+function goHome() {
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* -------------------------
+   شروع
+------------------------- */
+
+
+updateStep();
+
+
+</script>
+
+
+</body>
+
+</html>
