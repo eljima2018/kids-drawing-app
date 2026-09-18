@@ -1,205 +1,829 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>تمرین نقاشی</title>
 
+
   <style>
+
     * {
       box-sizing: border-box;
     }
 
+
     body {
+
       margin: 0;
+
       font-family: Arial, sans-serif;
+
       background: #f5f7ff;
-      text-align: center;
+
+      color: #222;
+
     }
+
 
     header {
+
       background: #6c63ff;
+
       color: white;
-      padding: 20px;
+
+      text-align: center;
+
+      padding: 22px;
+
       border-radius: 0 0 25px 25px;
+
     }
 
-    h1 {
+
+    header h1 {
+
       margin: 0;
+
+      font-size: 26px;
+
     }
+
 
     .container {
-      max-width: 700px;
+
+      max-width: 750px;
+
       margin: auto;
+
       padding: 20px;
+
+      text-align: center;
+
     }
+
+
+    .selected-drawing {
+
+      background: white;
+
+      padding: 15px;
+
+      border-radius: 20px;
+
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 5px 15px rgba(0,0,0,0.07);
+
+    }
+
+
+    .selected-drawing .emoji {
+
+      font-size: 70px;
+
+    }
+
 
     .canvas-box {
+
       background: white;
-      border-radius: 20px;
+
+      border-radius: 22px;
+
       padding: 10px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,0.1);
+
     }
+
 
     canvas {
+
       width: 100%;
-      height: 400px;
+
+      height: 420px;
+
+      display: block;
+
       border: 3px dashed #aaa;
+
       border-radius: 15px;
+
       background: white;
+
       touch-action: none;
+
     }
+
 
     .tools {
+
       margin-top: 20px;
+
       display: flex;
+
       justify-content: center;
+
       gap: 10px;
+
       flex-wrap: wrap;
+
     }
+
 
     button {
+
       border: none;
-      padding: 13px 20px;
-      border-radius: 12px;
+
+      padding: 14px 20px;
+
+      border-radius: 13px;
+
       font-size: 16px;
+
       cursor: pointer;
+
     }
+
 
     .clear {
-      background: #ffdddd;
+
+      background: #ffdede;
+
     }
+
+
+    .undo {
+
+      background: #e5e5ff;
+
+    }
+
+
+    .finish {
+
+      background: #20b26b;
+
+      color: white;
+
+    }
+
 
     .back {
+
       background: #ddd;
+
     }
 
-    .success {
-      background: #d9ffd9;
+
+    .message {
+
+      display: none;
+
+      margin-top: 25px;
+
+      padding: 25px;
+
+      background: #fff3cd;
+
+      border-radius: 20px;
+
+      font-size: 22px;
+
     }
+
+
+    .message button {
+
+      margin-top: 15px;
+
+      background: #6c63ff;
+
+      color: white;
+
+    }
+
+
+    .color-tools {
+
+      margin-top: 15px;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .color-button {
+
+      width: 38px;
+
+      height: 38px;
+
+      border-radius: 50%;
+
+      border: 3px solid #ddd;
+
+      cursor: pointer;
+
+    }
+
+
+    .black {
+      background: black;
+    }
+
+
+    .red {
+      background: red;
+    }
+
+
+    .blue {
+      background: blue;
+    }
+
+
+    .green {
+      background: green;
+    }
+
+
+    .orange {
+      background: orange;
+    }
+
+
+    .purple {
+      background: purple;
+    }
+
+
+    .pink {
+      background: pink;
+    }
+
+
+    .yellow {
+      background: #ffd700;
+    }
+
+
   </style>
+
 </head>
+
 
 <body>
 
+
 <header>
-  <h1>🎨 تمرین نقاشی</h1>
+
+  <h1>
+    🎨 وقت تمرین!
+  </h1>
+
 </header>
+
 
 <div class="container">
 
-  <h2>حالا خودت نقاشی کن! 🖌️</h2>
 
-  <p>
-    با انگشتت روی صفحه بکش.
-  </p>
+  <div class="selected-drawing">
+
+    <div
+      class="emoji"
+      id="drawingEmoji"
+    >
+      🎨
+    </div>
+
+    <h2 id="drawingName">
+      نقاشی
+    </h2>
+
+    <p>
+      حالا با انگشتت نقاشی کن!
+    </p>
+
+  </div>
+
 
   <div class="canvas-box">
+
     <canvas id="canvas"></canvas>
+
   </div>
+
+
+  <div class="color-tools">
+
+    <strong>
+      رنگ:
+    </strong>
+
+
+    <button
+      class="color-button black"
+      onclick="setColor('black')"
+    ></button>
+
+
+    <button
+      class="color-button red"
+      onclick="setColor('red')"
+    ></button>
+
+
+    <button
+      class="color-button blue"
+      onclick="setColor('blue')"
+    ></button>
+
+
+    <button
+      class="color-button green"
+      onclick="setColor('green')"
+    ></button>
+
+
+    <button
+      class="color-button orange"
+      onclick="setColor('orange')"
+    ></button>
+
+
+    <button
+      class="color-button purple"
+      onclick="setColor('purple')"
+    ></button>
+
+
+    <button
+      class="color-button pink"
+      onclick="setColor('pink')"
+    ></button>
+
+
+    <button
+      class="color-button yellow"
+      onclick="setColor('#ffd700')"
+    ></button>
+
+  </div>
+
 
   <div class="tools">
 
-    <button class="clear" onclick="clearCanvas()">
-      🗑️ پاک کردن
+
+    <button
+      class="undo"
+      onclick="undoDrawing()"
+    >
+      ↩️ پاک کردن آخرین خط
     </button>
 
-    <button class="success" onclick="finishDrawing()">
+
+    <button
+      class="clear"
+      onclick="clearCanvas()"
+    >
+      🗑️ پاک کردن همه
+    </button>
+
+
+    <button
+      class="finish"
+      onclick="finishDrawing()"
+    >
       ⭐ تمام کردم
     </button>
 
-    <button class="back" onclick="goBack()">
+
+    <button
+      class="back"
+      onclick="goBack()"
+    >
       ← بازگشت
+    </button>
+
+
+  </div>
+
+
+  <div
+    class="message"
+    id="message"
+  >
+
+    🎉 آفرین!
+
+    <br><br>
+
+    تو نقاشی خودت را کشیدی! ⭐
+
+    <br>
+
+    خیلی خوب پیش رفتی 👏
+
+    <br>
+
+
+    <button
+      onclick="clearCanvas()"
+    >
+      🎨 دوباره نقاشی کن
     </button>
 
   </div>
 
+
 </div>
+
 
 <script>
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
+/* =========================
+   دریافت نقاشی انتخاب شده
+========================= */
 
-  const rect = canvas.getBoundingClientRect();
 
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
 
-  ctx.lineWidth = 5;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-}
 
-resizeCanvas();
+const type =
+  params.get("type") || "cat";
+
+
+/* =========================
+   اطلاعات نقاشی‌ها
+========================= */
+
+
+const drawings = {
+
+
+  cat: {
+    name: "گربه",
+    emoji: "🐱"
+  },
+
+
+  dog: {
+    name: "سگ",
+    emoji: "🐶"
+  },
+
+
+  car: {
+    name: "ماشین",
+    emoji: "🚗"
+  },
+
+
+  house: {
+    name: "خانه",
+    emoji: "🏠"
+  },
+
+
+  tree: {
+    name: "درخت",
+    emoji: "🌳"
+  },
+
+
+  fish: {
+    name: "ماهی",
+    emoji: "🐟"
+  }
+
+
+};
+
+
+const selected =
+  drawings[type] || drawings.cat;
+
+
+document.getElementById(
+  "drawingName"
+).innerText =
+  "نقاشی " + selected.name;
+
+
+document.getElementById(
+  "drawingEmoji"
+).innerText =
+  selected.emoji;
+
+
+/* =========================
+   Canvas
+========================= */
+
+
+const canvas =
+  document.getElementById("canvas");
+
+
+const ctx =
+  canvas.getContext("2d");
+
 
 let drawing = false;
 
+
+let currentColor = "black";
+
+
+let lineWidth = 5;
+
+
+/* ذخیره خطوط برای Undo */
+
+
+let drawingHistory = [];
+
+
+/* =========================
+   اندازه Canvas
+========================= */
+
+
+function resizeCanvas() {
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+
+  canvas.width =
+    rect.width;
+
+
+  canvas.height =
+    rect.height;
+
+
+  ctx.lineCap =
+    "round";
+
+
+  ctx.lineJoin =
+    "round";
+
+
+  ctx.lineWidth =
+    lineWidth;
+
+
+  ctx.strokeStyle =
+    currentColor;
+
+}
+
+
+resizeCanvas();
+
+
+/* =========================
+   موقعیت انگشت / موس
+========================= */
+
+
 function getPosition(event) {
 
-  const rect = canvas.getBoundingClientRect();
+  const rect =
+    canvas.getBoundingClientRect();
+
 
   let x;
   let y;
 
+
   if (event.touches) {
 
-    x = event.touches[0].clientX - rect.left;
-    y = event.touches[0].clientY - rect.top;
+    x =
+      event.touches[0].clientX
+      - rect.left;
+
+
+    y =
+      event.touches[0].clientY
+      - rect.top;
 
   } else {
 
-    x = event.clientX - rect.left;
-    y = event.clientY - rect.top;
+    x =
+      event.clientX
+      - rect.left;
+
+
+    y =
+      event.clientY
+      - rect.top;
 
   }
 
-  return { x, y };
+
+  return {
+    x: x,
+    y: y
+  };
+
 }
+
+
+/* =========================
+   شروع نقاشی
+========================= */
+
 
 function startDrawing(event) {
 
   event.preventDefault();
 
+
   drawing = true;
 
-  const pos = getPosition(event);
+
+  const position =
+    getPosition(event);
+
 
   ctx.beginPath();
-  ctx.moveTo(pos.x, pos.y);
+
+
+  ctx.moveTo(
+    position.x,
+    position.y
+  );
+
+
+  drawingHistory.push(
+    ctx.getImageData(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    )
+  );
+
 }
+
+
+/* =========================
+   کشیدن
+========================= */
+
 
 function draw(event) {
 
   if (!drawing) return;
 
+
   event.preventDefault();
 
-  const pos = getPosition(event);
 
-  ctx.lineTo(pos.x, pos.y);
+  const position =
+    getPosition(event);
+
+
+  ctx.strokeStyle =
+    currentColor;
+
+
+  ctx.lineWidth =
+    lineWidth;
+
+
+  ctx.lineTo(
+    position.x,
+    position.y
+  );
+
+
   ctx.stroke();
+
 }
+
+
+/* =========================
+   پایان خط
+========================= */
+
 
 function stopDrawing(event) {
 
-  event.preventDefault();
+  if (event) {
+    event.preventDefault();
+  }
+
+
+  if (!drawing) return;
+
 
   drawing = false;
+
+
   ctx.closePath();
+
 }
 
-canvas.addEventListener("mousedown", startDrawing);
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("mouseup", stopDrawing);
-canvas.addEventListener("mouseleave", stopDrawing);
 
-canvas.addEventListener("touchstart", startDrawing);
-canvas.addEventListener("touchmove", draw);
-canvas.addEventListener("touchend", stopDrawing);
+/* =========================
+   Mouse
+========================= */
+
+
+canvas.addEventListener(
+  "mousedown",
+  startDrawing
+);
+
+
+canvas.addEventListener(
+  "mousemove",
+  draw
+);
+
+
+canvas.addEventListener(
+  "mouseup",
+  stopDrawing
+);
+
+
+canvas.addEventListener(
+  "mouseleave",
+  stopDrawing
+);
+
+
+/* =========================
+   Touch
+========================= */
+
+
+canvas.addEventListener(
+  "touchstart",
+  startDrawing,
+  { passive: false }
+);
+
+
+canvas.addEventListener(
+  "touchmove",
+  draw,
+  { passive: false }
+);
+
+
+canvas.addEventListener(
+  "touchend",
+  stopDrawing,
+  { passive: false }
+);
+
+
+/* =========================
+   انتخاب رنگ
+========================= */
+
+
+function setColor(color) {
+
+  currentColor =
+    color;
+
+}
+
+
+/* =========================
+   پاک کردن همه
+========================= */
+
 
 function clearCanvas() {
 
@@ -209,21 +833,97 @@ function clearCanvas() {
     canvas.width,
     canvas.height
   );
+
+
+  drawingHistory = [];
+
+
+  document.getElementById(
+    "message"
+  ).style.display =
+    "none";
+
 }
+
+
+/* =========================
+   Undo
+========================= */
+
+
+function undoDrawing() {
+
+  if (
+    drawingHistory.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  const previous =
+    drawingHistory.pop();
+
+
+  ctx.putImageData(
+    previous,
+    0,
+    0
+  );
+
+}
+
+
+/* =========================
+   تمام کردن
+========================= */
+
 
 function finishDrawing() {
 
-  alert("🎉 آفرین! نقاشی تو تمام شد!");
+  document.getElementById(
+    "message"
+  ).style.display =
+    "block";
 
 }
+
+
+/* =========================
+   بازگشت
+========================= */
+
 
 function goBack() {
 
-  window.location.href = "drawing.html";
+  window.location.href =
+    "drawing.html?type=" + type;
 
 }
 
+
+/* =========================
+   تغییر اندازه صفحه
+========================= */
+
+
+window.addEventListener(
+  "resize",
+  function() {
+
+    /*
+      فعلاً Canvas را هنگام
+      تغییر اندازه پاک نمی‌کنیم.
+    */
+
+  }
+);
+
+
 </script>
 
+
 </body>
+
 </html>
