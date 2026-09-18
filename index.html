@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>نقاشی قدم به قدم</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -22,7 +24,7 @@
       background: #6c63ff;
       color: white;
       text-align: center;
-      padding: 25px 15px;
+      padding: 28px 15px;
       border-radius: 0 0 30px 30px;
     }
 
@@ -44,101 +46,191 @@
 
     .title {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      font-size: 22px;
     }
 
     .drawings {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 15px;
+      gap: 18px;
     }
 
     .card {
       background: white;
-      border-radius: 20px;
-      padding: 20px 10px;
+      border-radius: 22px;
+      padding: 22px 10px;
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
       cursor: pointer;
       transition: 0.2s;
+      user-select: none;
     }
 
     .card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .card:active {
+      transform: scale(0.96);
     }
 
     .emoji {
-      font-size: 55px;
+      font-size: 65px;
     }
 
     .card h3 {
-      margin: 10px 0 0;
+      margin: 12px 0 0;
+      font-size: 19px;
     }
 
     footer {
       text-align: center;
-      padding: 25px;
+      padding: 30px 15px;
       color: #777;
     }
+
   </style>
 </head>
 
 <body>
 
   <header>
+
     <h1>🎨 نقاشی قدم به قدم</h1>
-    <p>با هم نقاشی‌های زیبا بکشیم!</p>
+
+    <p>
+      با هم نقاشی‌های زیبا بکشیم!
+    </p>
+
   </header>
+
 
   <main class="container">
 
-    <h2 class="title">نقاشی مورد علاقه‌ات را انتخاب کن 👇</h2>
+    <h2 class="title">
+      👇 یک نقاشی انتخاب کن
+    </h2>
+
 
     <div class="drawings">
 
-      <div class="card" onclick="window.location.href='drawing.html'">
-        <div class="emoji">🐱</div>
-        <h3>گربه</h3>
+
+      <!-- گربه -->
+
+      <div class="card" onclick="openDrawing('cat')">
+
+        <div class="emoji">
+          🐱
+        </div>
+
+        <h3>
+          گربه
+        </h3>
+
       </div>
 
-      <div class="card" onclick="startDrawing('سگ')">
-        <div class="emoji">🐶</div>
-        <h3>سگ</h3>
+
+      <!-- سگ -->
+
+      <div class="card" onclick="openDrawing('dog')">
+
+        <div class="emoji">
+          🐶
+        </div>
+
+        <h3>
+          سگ
+        </h3>
+
       </div>
 
-      <div class="card" onclick="startDrawing('ماشین')">
-        <div class="emoji">🚗</div>
-        <h3>ماشین</h3>
+
+      <!-- ماشین -->
+
+      <div class="card" onclick="openDrawing('car')">
+
+        <div class="emoji">
+          🚗
+        </div>
+
+        <h3>
+          ماشین
+        </h3>
+
       </div>
 
-      <div class="card" onclick="startDrawing('خانه')">
-        <div class="emoji">🏠</div>
-        <h3>خانه</h3>
+
+      <!-- خانه -->
+
+      <div class="card" onclick="openDrawing('house')">
+
+        <div class="emoji">
+          🏠
+        </div>
+
+        <h3>
+          خانه
+        </h3>
+
       </div>
 
-      <div class="card" onclick="startDrawing('درخت')">
-        <div class="emoji">🌳</div>
-        <h3>درخت</h3>
+
+      <!-- درخت -->
+
+      <div class="card" onclick="openDrawing('tree')">
+
+        <div class="emoji">
+          🌳
+        </div>
+
+        <h3>
+          درخت
+        </h3>
+
       </div>
 
-      <div class="card" onclick="startDrawing('ماهی')">
-        <div class="emoji">🐟</div>
-        <h3>ماهی</h3>
+
+      <!-- ماهی -->
+
+      <div class="card" onclick="openDrawing('fish')">
+
+        <div class="emoji">
+          🐟
+        </div>
+
+        <h3>
+          ماهی
+        </h3>
+
       </div>
+
 
     </div>
 
   </main>
 
+
   <footer>
-    ساخته شده برای یادگیری و سرگرمی کودکان ❤️
+
+    🎨 ساخته شده برای یادگیری و سرگرمی کودکان ❤️
+
   </footer>
 
+
   <script>
-    function startDrawing(name) {
-      alert("آموزش کشیدن " + name + " به‌زودی شروع می‌شود! 🎨");
+
+    function openDrawing(type) {
+
+      window.location.href =
+        "drawing.html?type=" + type;
+
     }
+
   </script>
 
+
 </body>
+
 </html>
