@@ -139,73 +139,27 @@
     🏠 بازگشت به صفحه اصلی
   </button>
 
-  <div id="finish">
-    🎉 آفرین!<br>
-    نقاشی گربه را کامل کردی! ⭐
-  </div>
+ <div id="finish">
+
+  🎉 آفرین!<br><br>
+
+  نقاشی گربه را کامل کردی! ⭐
+
+  <br><br>
+
+  <button
+    onclick="window.location.href='practice.html'"
+    style="
+      background:#6c63ff;
+      color:white;
+      border:none;
+      padding:15px 25px;
+      border-radius:15px;
+      font-size:17px;
+      cursor:pointer;
+    "
+  >
+    🎨 حالا خودم نقاشی می‌کنم
+  </button>
 
 </div>
-
-<script>
-
-let step = 1;
-
-const instructions = [
-  "ابتدا یک دایره برای سر گربه بکش.",
-  "حالا دو گوش برای گربه اضافه کن.",
-  "چشم‌های گربه را بکش.",
-  "بینی و دهان گربه را اضافه کن.",
-  "حالا بدن و پاهای گربه را بکش.",
-  "در آخر دم گربه را اضافه کن."
-];
-
-const drawings = [
-  "⭕",
-  "🐱",
-  "😺",
-  "😸",
-  "🐈",
-  "🐈‍⬛"
-];
-
-function updateStep() {
-
-  document.getElementById("stepNumber").innerText = step;
-
-  document.getElementById("instruction").innerText =
-    instructions[step - 1];
-
-  document.getElementById("cat").innerText =
-    drawings[step - 1];
-
-  if (step === 6) {
-    document.getElementById("finish").style.display = "block";
-  } else {
-    document.getElementById("finish").style.display = "none";
-  }
-}
-
-function nextStep() {
-
-  if (step < 6) {
-    step++;
-    updateStep();
-  }
-}
-
-function previousStep() {
-
-  if (step > 1) {
-    step--;
-    updateStep();
-  }
-}
-
-function goHome() {
-  window.location.href = "index.html";
-}
-
-</script>
-
-</body>
-</html>
