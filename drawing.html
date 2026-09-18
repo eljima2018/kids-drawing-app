@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>آموزش نقاشی</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7ff;
+      color: #222;
+    }
+
+    header {
+      background: #6c63ff;
+      color: white;
+      text-align: center;
+      padding: 22px;
+      border-radius: 0 0 25px 25px;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .step-number {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 15px;
+    }
+
+    .drawing-area {
+      background: white;
+      border-radius: 25px;
+      padding: 30px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .cat {
+      font-size: 150px;
+    }
+
+    .instruction {
+      font-size: 21px;
+      margin: 25px 0;
+      line-height: 1.8;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    button {
+      border: none;
+      border-radius: 15px;
+      padding: 14px 25px;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    .next {
+      background: #6c63ff;
+      color: white;
+    }
+
+    .previous {
+      background: #ddd;
+    }
+
+    .home {
+      margin-top: 20px;
+      background: #eee;
+    }
+
+    #finish {
+      display: none;
+      font-size: 25px;
+      background: #fff3cd;
+      padding: 25px;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🐱 آموزش کشیدن گربه</h1>
+</header>
+
+<div class="container">
+
+  <div class="step-number">
+    مرحله <span id="stepNumber">1</span> از 6
+  </div>
+
+  <div class="drawing-area">
+    <div class="cat" id="cat">⭕</div>
+  </div>
+
+  <div class="instruction" id="instruction">
+    ابتدا یک دایره برای سر گربه بکش.
+  </div>
+
+  <div class="buttons">
+
+    <button class="previous" onclick="previousStep()">
+      ← قبلی
+    </button>
+
+    <button class="next" onclick="nextStep()">
+      مرحله بعد →
+    </button>
+
+  </div>
+
+  <button class="home" onclick="goHome()">
+    🏠 بازگشت به صفحه اصلی
+  </button>
+
+  <div id="finish">
+    🎉 آفرین!<br>
+    نقاشی گربه را کامل کردی! ⭐
+  </div>
+
+</div>
+
+<script>
+
+let step = 1;
+
+const instructions = [
+  "ابتدا یک دایره برای سر گربه بکش.",
+  "حالا دو گوش برای گربه اضافه کن.",
+  "چشم‌های گربه را بکش.",
+  "بینی و دهان گربه را اضافه کن.",
+  "حالا بدن و پاهای گربه را بکش.",
+  "در آخر دم گربه را اضافه کن."
+];
+
+const drawings = [
+  "⭕",
+  "🐱",
+  "😺",
+  "😸",
+  "🐈",
+  "🐈‍⬛"
+];
+
+function updateStep() {
+
+  document.getElementById("stepNumber").innerText = step;
+
+  document.getElementById("instruction").innerText =
+    instructions[step - 1];
+
+  document.getElementById("cat").innerText =
+    drawings[step - 1];
+
+  if (step === 6) {
+    document.getElementById("finish").style.display = "block";
+  } else {
+    document.getElementById("finish").style.display = "none";
+  }
+}
+
+function nextStep() {
+
+  if (step < 6) {
+    step++;
+    updateStep();
+  }
+}
+
+function previousStep() {
+
+  if (step > 1) {
+    step--;
+    updateStep();
+  }
+}
+
+function goHome() {
+  window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
